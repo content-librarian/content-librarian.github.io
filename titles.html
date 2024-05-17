@@ -53,7 +53,7 @@ import js
 import pandas as pd
 from bs4 import BeautifulSoup
 import csv
-print("hello")
+print("python script initiated")
 def html_table_to_csv():
   html = js.document.getElementById("code").value
   soup = BeautifulSoup(html, "html.parser")
@@ -66,7 +66,6 @@ def html_table_to_csv():
     ul = cols[1].find('ul')
     lis = ul.find_all('li')
     title = lis[0].text.strip()
-    print(title)
     author = lis[1].text.strip()
     publisher = lis[2].text.strip()
     appearances = cols[2].find('div').text.strip()
@@ -86,7 +85,7 @@ def html_table_to_csv():
   output = df.to_csv(index=False)
   js.output = output
   return output
-
+print("python script complete")
 html_table_to_csv();
 
 `)
