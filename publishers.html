@@ -41,19 +41,20 @@
                 await pyodide.loadPackage("beautifulsoup4");
                 loading.style.display = "none";
                 boxes.style.display = "block";
+                console.log("python environment ready");
                 return pyodide;
             }
             let pyodideReadyPromise = main();
 
             async function convertTable() {
-                console.log("converting table");
+                console.log("go button clicked /n processing table");
                 let pyodide = await pyodideReadyPromise;
                 pyodide.runPython(`
 import js
 import pandas as pd
 from bs4 import BeautifulSoup
 import csv
-print("hello")
+print("python script initiated")
 def html_table_to_csv():
   html = js.document.getElementById("code").value
   soup = BeautifulSoup(html, "html.parser")
@@ -78,12 +79,13 @@ def html_table_to_csv():
   df = pd.DataFrame.from_dict(data, orient='index')
   output = df.to_csv(index=False)
   js.output = output
+  print("python script complete")
   return output
 
 html_table_to_csv();
 
 `)
-                console.log('Made it');
+                console.log('table converted /n file downloading');
                 console.log(output);
                 const blob = new Blob([output], {
                     type: "text/csv"
@@ -95,6 +97,7 @@ html_table_to_csv();
                 downloadLink.style.display = "none";
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
+                console.log('file downloaded');
             }
 
 
