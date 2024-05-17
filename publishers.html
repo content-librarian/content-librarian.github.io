@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>table maker - publisher</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+</head>
+
+<body>
+    <a href="index.html" id="home">Home</a><a href="titles.html">Titles</a>
+    <h1>Publisher table</h2>
+        <p id="loading" style="display:block">Getting ready to make a table . . . </p>
+        <div id="boxes" style="display:none">
+
+            <p>Paste an html table to convert it to a csv.</p>
+            <p>File will download when it's done.</p>
+            <input type="text" id="filename" placeholder="enter a file name">
+            <textarea id="code" style="width: 100%;" rows="20"></textarea>
+            <button onclick="convertTable()">Go!</button>
+            <button onclick="clearText()">Clear</button>
+        </div>
+        <script>
+            function clearText() {
+                document.getElementById("code").value = "";
+                document.getElementById("filename").value = "";
+            }
+            window.onload = clearText;
+            const filename = document.getElementById("filename");
+            const loading = document.getElementById("loading");
+            const boxes = document.getElementById("boxes");
+            // init Pyodide
+            async function main() {
+                let pyodide = await loadPyodide();
+                await pyodide.loadPackage("pandas");
+                await pyodide.loadPackage("beautifulsoup4");
+                loading.style.display = "none";
+                boxes.style.display = "block";
+                return pyodide;
+            }
+            let pyodideReadyPromise = main();
+
+            async function convertTable() {
+                console.log("converting table");
+                let pyodide = await pyodideReadyPromise;
+                pyodide.runPython(`
+import js
+import pandas as pd
+from bs4 import BeautifulSoup
+import csv
+print("hello")
+def html_table_to_csv():
+  html = js.document.getElementById("code").value
+  soup = BeautifulSoup(html, "html.parser")
+  rows = soup.find_all("tr")
+  data = {}
+  rowInd = 0
+  for row in rows:
+    cols = row.find_all('td')
+    rank = cols[0].text.strip()
+    ul = cols[1].find('ul')
+    lis = ul.find_all('li')
+    appearances = lis[0].text.strip()
+    publisher = cols[1].find('p').text.strip()
+    rowData = {
+      "rank": rank,
+      "publisher": publisher,
+      "appearances": appearances,
+    }
+    data[rowInd] = rowData
+    rowInd += 1
+
+  df = pd.DataFrame.from_dict(data, orient='index')
+  output = df.to_csv(index=False)
+  js.output = output
+  return output
+
+html_table_to_csv();
+
+`)
+                console.log('Made it');
+                console.log(output);
+                const blob = new Blob([output], {
+                    type: "text/csv"
+                });
+                const url = URL.createObjectURL(blob);
+                var downloadLink = document.createElement("a");
+                downloadLink.href = url;
+                downloadLink.download = filename.value + ".csv";
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+            }
+
+
+
+        </script>
+</body>
+
+</html>
