@@ -9,14 +9,32 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
 </head>
 <a href="/index.html" id="home">Home</a>
 <body>
   <h1>Make some tables</h1>
   <p>Have syllabus information you want to open?</p>
-  <p>Copy a table and convert it to a csv.</p>
 </br>
-  <a href="titles.html">Titles</a><a href="publishers.html">Publishers</a>
+<p id="loading" style="display:block">Getting ready . . . </p>
+    <div id="boxes" style="display:none">
+        <p>Paste an html table to convert it to a csv.</p>
+        <p>Select titles or publishers, depending on the table you're creating.</p>
+        <p>File will download when it's done.</p>
+        <label class="radioSelect" id="tableTypeTitle">Titles
+            <input type="radio" checked="checked" name="radio" value="title">
+            <span class="checkmark"></span>
+          </label>
+          <label class="radioSelect" id="tableTypePub">Publishers
+            <input type="radio" name="radio" value="publisher">
+            <span class="checkmark"></span>
+          </label>
+        <input type="text" id="filename" placeholder="enter a file name">
+        <textarea id="code" style="width: 100%;" rows="20"></textarea>
+        <button onclick="convertTable()">Go!</button>
+        <button onclick="clearText()">Clear</button>
+    </div>
+    <script src="table-maker.js" ></script>
 </body>
 
 </html>
