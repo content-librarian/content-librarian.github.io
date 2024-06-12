@@ -21,7 +21,7 @@ async function main() {
 let pyodideReadyPromise = main();
 
 async function convertTable() {
-  console.log("go button clicked /n processing table");
+  console.log("go button clicked, processing table");
   let pyodide = await pyodideReadyPromise;
   pyodide.runPython(`
 import js
