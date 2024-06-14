@@ -17,16 +17,12 @@
 
 <body>
     <h1>ISBN parser</h1>
-    <p>Extract publisher registration numbers from ISBNs.</p>
+    <p>Extract publisher registrant numbers from ISBNs.</p>
     </br>
     <p id="loading" style="display:block">Getting ready . . . </p>
     <div id="boxes" style="display:none">
-        <p>Upload a spreadsheet with columns named "ISBN," "PARENT," "PUBLISHER," and "IMPRINT."</p>
-        <p>You'll need at least ISBNs in the ISBN column and something to indicate a publisher in one of the other columns, but if you don't have
-            all the columns, that's okay.
-        </p>
-        <p>If your spreadsheet is in XLSX format, your columns need to be in the order above.</p>
-        <p>If your spreadsheet is in CSV format, your columns can be in any order, but they need to be named as above (all caps, too).</p>
+        <p>Upload a spreadsheet with columns named ISBN, PARENT, PUBLISHER, and IMPRINT.</p>
+        <p>Output is .xlsx. Identifies invalid isbn-10s and isbn-13s and separates valid isbns into prefixes, registration groups, and registrant groups, except I call registration group "geo-group" because registration/registrant gets confusing for me.</p>
         <div id="upload">
             <input type="file" id="isbnFile" class="file" name="isbns" accept=".xlsx, .csv">
             <label for="isbnFile">Upload</label>

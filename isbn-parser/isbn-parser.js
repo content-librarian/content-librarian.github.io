@@ -7,6 +7,15 @@ var fileData = [];
 
 // init Pyodide
 
+function fileListener() {
+    var fileUpload = document.getElementById("isbnFile");
+    if (fileUpload) {
+        console.log("file upload found");
+        fileUpload.addEventListener("change", handleFileSelect, false);
+    }
+
+    console.log("event listener added");
+}
 
 
 async function main() {
@@ -19,12 +28,7 @@ async function main() {
     loading.style.display = "none";
     boxes.style.display = "block";
     console.log("python environment ready");
-    var fileUpload = document.getElementById("isbnFile");
-    if (fileUpload) {
-        fileUpload.addEventListener("change", handleFileSelect, false);
-
-    }
-
+    fileListener();
     return pyodide;
 }
 
@@ -43,14 +47,16 @@ import openpyxl
 import io
 import base64
 
-
 print("python script initiated")
-
 
 isbnData = pd.json_normalize(js.fileData.to_py())
 
+
+
 def isbn_parser():
     for index, row in isbnData.iterrows():
+        print(row['isbn'],' ',index)
+        if pd.notna(row['isbn']):
             isbn = row['isbn']
             publisher = row['publisher']
             imprint = row['imprint']
@@ -157,3 +163,4 @@ function handleFileSelect(evt) {
 }
 
 
+// generic isbns 978-0-317, 978-0-318, 978-0-467, 978-0-578, 978-0-614, 978-0-615, 978-0-685, 978-0-686, 978-0-692, 979-8-218
