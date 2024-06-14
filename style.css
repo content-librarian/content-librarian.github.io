@@ -19,6 +19,20 @@ body {
     cursor: pointer;
 }
 
+.htmlButton {
+    background-color: rgb(233, 205, 50);
+    border: none;
+    color: white;
+    width: auto;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
 .linkButton {
     background-color: rgb(97, 143, 175);
     border: none;
@@ -115,4 +129,36 @@ input.file {
     height: 8px;
     border-radius: 50%;
     background: white;
+}
+
+#controlPanel {
+    display: flex;
+    background-color: #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: auto;
+}
+
+.editorButtons {
+    border: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.trumbowyg-editor-box {
+    background-color: #fff;
+}
+
+.trumbowyg-textarea {
+    background-color: #000;
+    color: #fff;
+}
+
+#info {
+    display: flex;
+    background-color: #fff;
+    border: 5px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: auto;
 }

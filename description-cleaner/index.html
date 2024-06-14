@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>description cleaner</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="manifest" href="/icons/site.webmanifest">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css">
+</head>
+
+<body>
+    <a href="/index.html" id="home" class="linkButton">Home</a>
+    <h1>Clean up descriptions</h1>
+
+    <div id="controlPanel">
+        <div class="editorButtons">
+            <button onclick="removeSpaces()" class="htmlButton"
+                title="Remove extra lines breaks. Convert br tags into p tags.">line breaks</button>
+        </div>
+        <div class="editorButtons">
+            <button onclick="convertToBulletedList()" class="htmlButton"
+                title="Convert bullet points into lists.">lists</button>
+        </div>
+    </div>
+    <div id="html-editor" class="trumbowyg-editor"></div>
+    <button onclick="clearText()" class="htmlButton">clear</button>
+    <button onclick="infoButton()" class="htmlButton">about</button>
+    <div id="info" style="display: none;">
+        <p>Simplify/sanitize html.</p>
+        <p>Copy text straight from a web page, no need to get the raw html. Paste into the white text box.</p>
+        <p>Click the &lt;&gt; button to see the raw html.</p>
+        <p>Now click the buttons to make the transformations you need.</p>
+        <p>Sometimes the line breaks need to be cleaned before the lists work properly. Clicking a button more than once
+            can do weird things.</p>
+        <p>When the html looks right, copy and paste it wherever.</p>
+        <p>You can click the the &lt;&gt; button again to make sure the html still displays properly.</p>
+        <p>Should look nice and tidy as a cell when pasted into the formula bar in excel.</p>
+    </div>
+
+    <!-- scripts start here -->
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+    <!-- wysiwyg html editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js"></script>
+    <!-- trumbowyg plugins -->
+    <!-- trumbowyg undo plugin -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/plugins/history/trumbowyg.history.min.js"></script>
+    <!-- my script-->
+    <script src="description-cleaner.js"></script>
+</body>
+
+</html>
