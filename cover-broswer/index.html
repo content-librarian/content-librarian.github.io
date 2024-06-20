@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>cover browser</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="manifest" href="/icons/site.webmanifest">
+    <link rel="stylesheet" href="cover-broswer.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <a href="/index.html" id="home" class="linkButton">Home</a>
+    <h1>cover browser</h1>
+    <div id="info" class="hidden">
+        <div class="modal-content" id="infoBox">
+            <button onclick="closeModals(info)" class="close">&times;</button>
+            <h2>info</h2>
+            <div id="infoText">
+                <h3>About</h3>
+                <p>Search for book covers across multiple sources.</p>
+                <p>Upload a spreadsheet with the columns: EISBN, PRINT_ISBN, TITLE, IMPRINT, PUBLISHER, HAS_COVER</p>
+                <h3>Options</h3>
+                <p><strong>source:</strong></p>
+                <ul>
+                    <li>Select a primary image source. Images from this retailer will display after your spreadsheet has
+                        loaded.</li>
+                </ul>
+                <p><strong>retailer notes:</strong></p>
+                <p>Searching Google Books takes a little more effort, so it can only be selected as second or third
+                    source.</p>
+                <p>Print ISBNs are unlikely to get any cover images from RedShelf or VitalSource.</p>
+            </div>
+        </div>
+    </div>
+    <div id="searchDetails"></div>
+    <div id="searchOptions"><button onclick="infoButton()" class="htmlButton" id="about"
+            title="how to use search options">?</button>
+        <h3>search options</h3>
+        <div id="sources">
+            <p>select image sources:</p>
+            <select id="primarySearch" autocomplete="off">
+                <option value="vst">VitalSource</option>
+                <option value="rs">RedShelf</option>
+                <option value="bn">Barnes & Noble</option>
+            </select>
+        <input type="file" id="fileUpload" accept=".xlsx,.csv" autocomplete="off">
+        <button onclick="beginSearch()" id="searchButton" disabled
+            title="Upload a file before starting search">load</button>
+    </div>
+    </div>
+
+
+    <div id="controlContainer">
+        <div id="reportControls">
+            <div id="browserFilters">
+                <h3>filter</h3>
+                <div id="coverFilter">
+                    <label style="background-color: rgba(0, 0, 255, 0.27);" class="coverFilter">
+                        no cover:
+                        <input type="checkbox" id="noCover" name="noCover" value="no-cover" checked="checked"
+                            autocomplete="off">
+                    </label>
+                    <label style="background-color: rgba(255, 0, 0, 0.27);" class="coverFilter">
+                        facsimile:
+                        <input type="checkbox" id="facsimile" name="facsimile" value="facsimile" checked="checked"
+                            autocomplete="off">
+                    </label>
+                    <label style="background-color: rgba(0, 128, 0, 0.27);" class="coverFilter">
+                        has cover:
+                        <input type="checkbox" id="yesCover" name="yesCover" value="yes-cover" checked="checked"
+                            autocomplete="off">
+                    </label>
+                    <label style="background-color: rgba(128, 128, 128, 0.27);" class="coverFilter">
+                        saved:
+                        <input type="checkbox" id="saved" name="saved" value="saved" checked="checked"
+                            autocomplete="off">
+                    </label>
+                </div>
+                <div id="pubFilter">
+                    <button id="pubFilterButton">publisher</button>
+                    <button id="filterClear">clear filter</button>
+                </div>
+                <span class="verticalDivider"></span>
+                <h3>sort</h3>
+                <div id="sortFilter">
+                    <select id="sortSelect">
+                        <option value="missingCover">missing cover</option>
+                        <option value="facsimile">facsimile</option>
+                        <option value="hasCover">has cover</option>
+                        <option value="publisherAsc">publisher ascending</option>
+                        <option value="publisherDesc">publisher descending</option>
+                    </select>
+                </div>
+                <span class="verticalDivider"></span>
+            </div>
+            <div id="export">
+                <h3>select</h3>
+                <div id="selector">
+                    <a href="#" id="selectAll">select all</a>
+                    <a href="#" id="selectNone">select none</a>
+                </div>
+                <span class="verticalDivider"></span>
+                <h3>label</h3>
+                <div id="selector2">
+                    <a href="#" id="selectMissing">missing</a>
+                    <a href="#" id="selectFacsimile">facsimile</a>
+                    <a href="#" id="selectCover">valid</a>
+                </div>
+                <span class="verticalDivider"></span>
+                <h3>export</h3>
+                <div id="exportControls">
+                    <a href="#" id="exportButton">export</a>
+                </div>
+            </div>
+        </div>
+        <div id="controlOverlay" class="loader">
+            <h1>loading covers</h1>
+        </div>
+    </div>
+
+    <div id="coverBrowser"></div>
+
+    <div id="resultModal" class="hidden">
+        <div class="modal-content">
+            <button onclick="closeModals(resultModal)" class="close">&times;</button>
+            <div id="resultModalHidden">
+                <div id="metadata">
+                    <img id="modalImg" src="" alt="Cover Image">
+                    <p id="modalEISBN"></p>
+                    <p id="modalTitle"></p>
+                    <p id="modalPrintISBN"></p>
+                    <p id="modalImprint"></p>
+                    <p id="modalPublisher"></p>
+                    <div id="options">
+                        <p>cover status</p>
+                        <select id="coverOptions">
+                            <option value="no">no</option>
+                            <option value="facsimile">facsimile</option>
+                            <option value="yes">yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="alternates">
+                    <div id="alternatesResults">
+                        <div class="isbnSearched">
+                            <h4>Check other sources</h4>
+                            <select id="secondarySourceSelect" autocomplete="off">
+                                <option value="vst">VitalSource</option>
+                                <option value="rs">RedShelf</option>
+                                <option value="bn">Barnes & Noble</option>
+                                <option value="gbL">Google Books Large</option>
+                                <option value="gbT">Google Books Thumbnail</option>
+                            </select>
+                            <!-- <h3>Source 2</h3> -->
+                            <div id="secondarySourceResults">
+                                <span id="secondarySourceimgContainer">
+                                    <span id="secondarySource" class="altIMG"></span>
+                                </span>
+                                <button onclick="addImg('eisbn')" id="secondarySourceEisbnButton">eisbn</button>
+                                <button onclick="addImg('print')" id="secondarySourcePrintButton">print</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="endMatter">
+                    <div id="notes">
+                        <h3>notes</h3>
+                        <textarea id="notesText" name="notesText" autocomplete="off"></textarea>
+                        <a href="#" id="resultModalSubmit">save</a>
+                    </div>
+                    <div #="#prevNext">
+                        <span><a href="#" id="prevModal">previous</a></span>
+                        <span></span><a href="#" id="nextModal">next</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pubModal" class="hidden">
+        <div class="modal-content">
+            <button onclick="closeModals(pubModal)" class="close">&times;</button>
+            <h3>select publishers</h3>
+
+            <a href="#" id="pubAll">select all</a>
+            <a href="#" id="pubNone">select none</a>
+            <button id="pubFilterApply">apply</button>
+            <div id="pubList"></div>
+        </div>
+    </div>
+    <script src="cover-browser.js"></script>
+</body>
+
+</html>

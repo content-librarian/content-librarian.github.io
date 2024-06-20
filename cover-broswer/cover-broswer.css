@@ -1,0 +1,509 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    background-color: #e8e6e6;
+    display: grid;
+    grid-template-columns: .5fr 5fr .5fr;
+    justify-items: center;
+
+}
+
+body *:not(.imgDiv):not(.modal-content *) {
+    box-sizing: border-box;
+    grid-column: 2;
+}
+
+
+
+.hidden * {
+    display: none;
+    border: none;
+}
+
+img {
+    border: 5px solid #555;
+    border-radius: 5px;
+    width: 140px;
+}
+
+#searchDetails {
+    display: flex;
+    margin: 1rem 0;
+    align-items: center;
+}
+
+#searchDetails h2 {
+    font-size: 1rem;
+}
+
+
+
+.verticalDivider {
+    border-left: 1px solid #727973;
+    height: 100px;
+    margin: 0 1rem;
+}
+
+button,
+input::file-selector-button {
+    margin: .5rem;
+    padding: 1rem;
+    background-color: rgb(114, 121, 115);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font: .8rem sans-serif;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: block;
+    color: #888;
+    border: none;
+    cursor: pointer;
+}
+
+#controlContainer {
+    position: relative;
+}
+
+#reportControls {
+    display: none;
+    width: 100%;
+    height: 100%;
+    margin: 1rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #727973;
+    border-radius: .7rem;
+}
+
+#controlOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 1rem 0 0 1rem;
+    z-index: 3;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #b9bcbbd4;
+    border-radius: .7rem;
+
+    opacity: .9;
+}
+
+.loader h1 {
+    font-size: 8rem;
+    color: #727973;
+    text-shadow: 0 0 20px #727973;
+    }
+
+.loader {
+    animation: myanim 3s infinite;
+}
+
+@keyframes myanim {
+    30% {
+        background-color: #9ca0a2;
+        color: #727973;
+    }
+}
+
+#browserFilters {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+}
+
+#browserFilters h3,
+#export h3 {
+    margin-bottom: 3rem;
+    font-size: .85rem;
+}
+
+.coverFilter {
+    font-family: system-ui, sans-serif;
+    font-size: .8rem;
+    padding: .25rem;
+    margin: 0 1rem;
+    width: 10rem;
+    display: grid;
+    grid-template-columns: .5fr .5fr;
+}
+
+#export {
+    display: flex;
+    margin: 1rem;
+    align-items: center;
+}
+
+
+#export h3 {
+    margin-bottom: 3rem;
+}
+
+#endMatter a,
+#selector a,
+#selector2 a,
+#exportControls a,
+#searchControls a {
+    min-width: 4.5rem;
+    margin: .5rem;
+    padding: 1rem;
+    background-color: #727973;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font: .8rem sans-serif;
+}
+
+#endMatter,
+#selector,
+#selector2,
+#exportControls,
+#searchControls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+#coverBrowser {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 0;
+    width: 100%;
+}
+
+.imgDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+
+div.imgDiv img {
+    height: 180px;
+}
+
+div.imgDiv p {
+    max-height: .7rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    font: .7rem sans-serif;
+
+}
+
+.statusDiv {
+    display: flex;
+    padding: 0;
+}
+
+input.imgCheck {
+    margin: 1rem 0;
+    padding: 0;
+    height: 1rem;
+}
+
+div.statusDiv p {
+    margin: 1rem;
+    font: .8rem sans-serif;
+}
+
+select {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #727973;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #727973;
+    border-radius: .7rem;
+    background-color: #fefefe;
+    margin: 2rem auto 15rem;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80vw;
+}
+
+.modal-content a {
+    margin: .5rem;
+    padding: 1rem;
+    background-color: #a1a3a2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#metadata {
+    grid-column: 1;
+    margin: 1rem;
+    height: 100%;
+}
+
+
+
+#resultModalHidden {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+#alternates {
+    grid-column: 2;
+    display: block;
+    position: relative;
+
+}
+
+
+#alternatesResults {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.isbnSearched {
+    background-color: #a1a3a2;
+    border-radius: .7rem;
+    padding: 1rem;
+}
+
+#gBooksResults,
+#rShelfResults {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+#alternates span {
+    display: block;
+    margin: 1rem;
+}
+
+
+#notesText {
+    margin: 1rem;
+    top: 0;
+    height: 15rem;
+}
+
+#resultModalSubmit {
+    width: 30%;
+    right: 0;
+    height: 2rem;
+}
+
+#notes {    
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: flex-start;
+    margin: 1rem;
+    width: 100%;
+}
+
+#prevNext {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem;
+    width: 100%;
+
+}
+
+#pubList {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    /* aligns items to the top */
+    height: 400px;
+    /* adjust as needed */
+    overflow-y: auto;
+    /* adds scrollbar if necessary */
+}
+
+#pubFilterApply {
+    margin-left: 5rem;
+}
+
+
+
+.altIMG img {
+    max-width: 100%;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+
+}
+
+
+.saved {
+    background-color: #b9bcbbd4;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.saved img {
+    transform: scale(.7, .7);
+}
+
+
+.loading {
+    filter: blur(2px) drop-shadow(5px 5px yellow);
+}
+
+.missing {
+    box-shadow: 15px 5px blue;
+}
+
+.facsimile {
+    box-shadow: 15px 5px red;
+}
+
+.hasCover {
+    box-shadow: 15px 5px green;
+}
+
+#searchModal {
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#searchOptions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+.searchSelector {
+    display: block;
+}
+
+
+.linkButton {
+    background-color: rgb(97, 143, 175);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#searchOptions {
+    display: block;
+
+    border: 10px solid rgb(97, 143, 175);
+    border-radius: 1rem;
+}
+
+#sources, #searchBehavior {
+    padding: 1rem;
+    margin: 1rem;
+    width: fit-content;
+    background-color:  #f0f0f0;
+    border: 10px solid rgb(233, 205, 50);
+    border-radius: 1rem;
+}
+
+.htmlButton {
+    background-color: rgb(233, 205, 50);
+    border: none;
+    color: white;
+    width: auto;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.close {
+    float: right;
+    background-color: rgb(97, 143, 175);
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#infoBox {
+    background-color:rgb(233, 205, 50);
+    border: 10px solid rgb(97, 143, 175);
+    padding: 0;
+}
+#infoBox h2 {
+    padding: 1rem;
+    margin: 0;
+}
+
+#infoText {
+    background-color: #fefefe;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+#about {
+    float: right;
+}
+
+button[disabled] {
+    background-color: #727973;
+    color: rgb(144, 140, 140);
+    cursor: not-allowed;
+}

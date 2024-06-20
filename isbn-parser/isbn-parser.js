@@ -121,6 +121,7 @@ function handleFileSelect(evt) {
             var workbook = XLSX.read(data, { type: 'array' });
             var worksheet = workbook.Sheets[workbook.SheetNames[0]];
             var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            jsonData.shift();
             fileData = jsonData.map(function (row) {
                 return {
                     'isbn': row[0],
