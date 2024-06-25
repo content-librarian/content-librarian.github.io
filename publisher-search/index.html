@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>publisher search</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="manifest" href="/icons/site.webmanifest">
+    <!-- Reset -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@1.1.0/modern-normalize.min.css">
+
+
+    <link rel="stylesheet" href="publisher-search.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+
+
+<body>
+    <a href="/index.html" id="home" class="linkButton">Home</a>
+    <h1>Publisher search</h1>
+    <p>custom google search engine configured to search a select list of publisher websites
+    </p>
+    <div id="pub-search">
+
+        <div id="pub-search-box">
+
+            <input class="search-box-input" type="search" placeholder="Search.." autocomplete="off">
+            <div id="searchButtons">
+                <button class="pushButton" id="pub-search-button">Search</button>
+                <button class="linkButton" id="pubClear">clear</button>
+            </div>
+        </div> <!-- pub-search-box -->
+        <div id="pub-search-script">
+            <script async src="https://cse.google.com/cse.js?cx=8772729d673fd46de">
+            </script>
+            <div class="gcse-searchbox"></div>
+            <div class="gcse-searchresults"></div>
+        </div> <!-- pub-search-script -->
+        <hr>
+    </div>
+
+    <script src="publisher-search.js"></script>
+</body>
+
+</html>
