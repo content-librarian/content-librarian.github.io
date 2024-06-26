@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>bulk search</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="manifest" href="/icons/site.webmanifest">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+
+
+<body>
+    <a href="/index.html" id="home" class="linkButton">Home</a>
+    <h1>Bulk search</h1>
+    <p>Upload a list of ISBNs, get metadata from Google Books.</p>
+    </br>
+    <p id="loading" style="display:block">Getting ready . . . </p>
+    <div id="boxes" style="display:none">
+        <div id="upload">
+            <input type="file" id="isbnFile" class="file" name="isbns" accept=".xlsx, .csv">
+            <label for="isbnFile">Upload</label>
+        </div>
+    </div>
+    <div id="searching" style="display:none;"><p>Searching . . .</p></div>
+    <div id="results" style="display: none;">
+        <button onclick="downloadResults()" id="download" class="pushButton">Download</button>
+    </div>
+    <script src="bulk-search.js"></script>
+</body>
+
+</html>
