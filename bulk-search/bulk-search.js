@@ -155,7 +155,7 @@ async function getMetadata() {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.totalItems > 0) {
+                    if (data.totalItems > 0 && data.hasOwnProperty('items')) {
                         var item = data.items[0].volumeInfo;
                         fileData[fileIndex].title = item.title;
                         fileData[fileIndex].subtitle = item.subtitle;
