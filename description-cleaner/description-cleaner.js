@@ -35,37 +35,37 @@ function removeSpaces() {
     $('#html-editor').trumbowyg('html', cleanedHtml);
 }
 
-function convertToBulletedList() {
-    var currentHtml = $('#html-editor').trumbowyg('html');
+// function convertToBulletedList() {
+//     var currentHtml = $('#html-editor').trumbowyg('html');
     
-    // Updated regular expression to match potential list items starting with *, •, or after <br> tags
-    var listItemRegex = /(?:<p>(?:\*|•)|<br>(?:\*|•)|(?:\*|•)|<\/p><p>(?:\*|•))\s*(.*?)<\/p>|<br>\s*(.*?)(?=<br>|$)/gi;
+//     // Updated regular expression to match potential list items starting with *, •, or after <br> tags
+//     var listItemRegex = /(?:<p>(?:\*|•)|<br>(?:\*|•)|(?:\*|•)|<\/p><p>(?:\*|•))\s*(.*?)<\/p>|<br>\s*(.*?)(?=<br>|$)/gi;
     
-    // Function to wrap matched items in <li> tags and accumulate them
-    var replaceFunction = function(match, p1, p2) {
-        var content = p1 || p2;
-        return '<li>' + content.trim() + '</li>';
-    };
+//     // Function to wrap matched items in <li> tags and accumulate them
+//     var replaceFunction = function(match, p1, p2) {
+//         var content = p1 || p2;
+//         return '<li>' + content.trim() + '</li>';
+//     };
     
-    // Replace potential list items with <li> tags
-    var listifiedHtml = currentHtml.replace(listItemRegex, replaceFunction);
+//     // Replace potential list items with <li> tags
+//     var listifiedHtml = currentHtml.replace(listItemRegex, replaceFunction);
     
-    // Wrap all <li> tags with <ul> tags
-    listifiedHtml = listifiedHtml.replace(/(<li>.*<\/li>)/gis, '<ul>$1</ul>');
+//     // Wrap all <li> tags with <ul> tags
+//     listifiedHtml = listifiedHtml.replace(/(<li>.*<\/li>)/gis, '<ul>$1</ul>');
     
-    // Remove any <p> tags that directly wrap <ul> tags, as this is invalid HTML
-    listifiedHtml = listifiedHtml.replace(/<p>\s*(<ul>.*<\/ul>)\s*<\/p>/gi, '$1');
+//     // Remove any <p> tags that directly wrap <ul> tags, as this is invalid HTML
+//     listifiedHtml = listifiedHtml.replace(/<p>\s*(<ul>.*<\/ul>)\s*<\/p>/gi, '$1');
     
-    // Update the editor with the modified HTML content
-    $('#html-editor').trumbowyg('html', listifiedHtml);
-}
+//     // Update the editor with the modified HTML content
+//     $('#html-editor').trumbowyg('html', listifiedHtml);
+// }
 
-function infoButton() {
-    var infoBox = document.getElementById('info');
-    if (infoBox.style.display === 'none') {
-        infoBox.style.display = 'block';
-    } else {
-        infoBox.style.display = 'none';
-    }
+// function infoButton() {
+//     var infoBox = document.getElementById('info');
+//     if (infoBox.style.display === 'none') {
+//         infoBox.style.display = 'block';
+//     } else {
+//         infoBox.style.display = 'none';
+//     }
 
-}
+// }
