@@ -22,8 +22,7 @@
 <body>
     <a href="/index.html" id="home" class="linkButton">Home</a>
     <h1>Morning Match</h1>
-    <p>Upload a list of ISBNs, get metadata from Google Books.</p>
-    </br>
+
     <p id="loading" style="display:block">Getting ready . . . </p>
     <div id="boxes" style="display:none">
         <div id="upload">
@@ -31,11 +30,11 @@
             <label for="isbnFile">Upload</label>
         </div>
     </div>
-    <div id="searching" style="display:none;"><p>Searching . . .</p></div>
+    <div id="searching" style="display:none;"><p>Processing . . .</p></div>
     <div id="results" style="display: none;">
         <button onclick="downloadResults()" id="download" class="pushButton">Download</button>
     </div>
-    <script src="bulk-search.js"></script>
+    <script src="morning-match.js"></script>
 </body>
 
 </html>
