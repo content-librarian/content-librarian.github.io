@@ -162,3 +162,9 @@ input.file {
     margin: 10px;
     width: auto;
 }
+
+#toolButtons {
+    display:  inline-block;
+    width: 500px;
+
+}
