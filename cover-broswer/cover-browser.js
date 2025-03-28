@@ -640,7 +640,7 @@ function secondaryImgSrc(imgSrc, isbn) {
             newSrc = bnUrl1 + isbn + bnUrl2;
             return newSrc;
         } else if (imgSrc === 'gbL') {
-            newSrc = `${gbImgUrl1}${isbn}${gbImgUrl2}2`;
+            newSrc = `${gbImgUrl1}${isbn}${gbImgUrl2}4`;
             return newSrc;
         } else if (imgSrc === 'gbT') {
             newSrc = `${gbImgUrl1}${isbn}${gbImgUrl2}5`;
