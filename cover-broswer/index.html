@@ -26,7 +26,24 @@
         <h1>Cover image browser</h1>
     </div>
     <div id="searchOptions">
-        <div id="sources">
+        <div id="searchSingle">
+            <input type="text" id="isbnInput" placeholder="ISBN" autocomplete="off">
+            <button onclick="singleSearch()" id="searchButtonSingle"
+                title="Enter an ISBN before starting search">search</button>
+            <button onclick="clearSingle()" id="clearButtonSingle" style="display: none;"
+                title="Clear the search box">clear</button>
+
+            <div id="singleSearchImg"></div> 
+            <select id="searchSourceSelect" autocomplete="off" style="display: none;">
+                <option value="vst">VitalSource</option>
+                <option value="rs">RedShelf</option>
+                <option value="bn">Barnes & Noble</option>
+                <option value="gbL">Google Books Large</option>
+                <option value=", gbT">Google Books Thumbnail</option>
+            </select>       
+        </div>
+        <div id="searchBulk">
+            <h3>bulk search</h3>
             <p>select image source:</p>
             <select id="primarySearch" autocomplete="off">
                 <option value="vst">VitalSource</option>
@@ -35,7 +52,7 @@
             </select>
             <input type="file" id="fileUpload" accept=".xlsx,.csv" autocomplete="off">
             <button onclick="beginSearch()" id="searchButton" disabled
-                title="Upload a file before starting search">load</button>
+                title="Upload a file before starting search">search</button>
         </div>
     </div>
     <div id="content">
@@ -201,6 +218,9 @@
                 <div id="pubList"></div>
             </div>
         </div>
+
+        
+
     </div>
     <script src="cover-browser.js"></script>
 </body>

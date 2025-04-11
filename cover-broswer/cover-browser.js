@@ -1,4 +1,8 @@
 const infoBox = document.getElementById('info');
+const searchButtonSingle = document.getElementById('searchButtonSingle');
+const searchButtonClear = document.getElementById('clearButtonSingle');
+const singleSearchImg = document.getElementById('singleSearchImg');
+const searchSourceSelect = document.getElementById('searchSourceSelect');
 const searchButton = document.getElementById('searchButton');
 const fileUpload = document.getElementById('fileUpload');
 const searchOptions = document.getElementById('searchOptions');
@@ -38,6 +42,70 @@ var gbImgUrl2 = '&printsec=frontcover&img=1&zoom=';
 window.onload = function () {
     searchButton.disabled = true;
     searchButton.title = 'Upload a file before starting search';
+}
+
+function singleSearch() {
+    var isbnSearchValue = document.getElementById('isbnInput').value;
+    var singleImg = document.createElement('img');
+
+    var singleImgUrl = vstUrl + isbnSearchValue;
+    singleImg.src = singleImgUrl;
+    singleImg.onerror = function () {
+        this.onerror = null;
+        this.src = 'no_cover.jpg';
+    };
+    singleSearchImg.innerHTML = '';
+    singleSearchImg.appendChild(singleImg);
+    searchSourceSelect.style.display = 'block';
+    searchButtonClear.style.display = 'inline-block';
+}
+
+searchSourceSelect.addEventListener('change', function () {
+    var source = searchSourceSelect.value;
+    var isbnSearchValue = document.getElementById('isbnInput').value;
+    var singleImg = document.createElement('img');
+    var singleImgUrl = '';
+
+    if (source === 'vst') {
+        singleImgUrl = vstUrl + isbnSearchValue;
+    }
+    else if (source === 'rs') {
+        singleImgUrl = rsUrl + isbnSearchValue + '.jpg';
+    } else if (source === 'bn') {
+        singleImgUrl = bnUrl1 + isbnSearchValue + bnUrl2;
+    } else if (source === 'gbL') {
+        getGoogleBookId(isbnSearchValue)
+            .then(([bookId]) => {
+                singleImgUrl = `${gbImgUrl1}${bookId}${gbImgUrl2}4`;
+            })
+            .catch(error => {
+                console.error('Error fetching book IDs:', error);
+                singleImgUrl = 'no_cover.jpg';
+            });
+    } else if (source === 'gbT') {
+        getGoogleBookId(isbnSearchValue)
+            .then(([bookId]) => {
+                singleImgUrl = `${gbImgUrl1}${bookId}${gbImgUrl2}5`;
+            })
+            .catch(error => {
+                console.error('Error fetching book IDs:', error);
+                singleImgUrl = 'no_cover.jpg';
+            });
+    }
+    singleImg.src = singleImgUrl;
+    singleImg.onerror = function () {
+        this.onerror = null;
+        this.src = 'no_cover.jpg';
+    };
+    singleSearchImg.innerHTML = '';
+    singleSearchImg.appendChild(singleImg);
+});
+
+function clearSingle() {
+    document.getElementById('isbnInput').value = '';
+    singleSearchImg.innerHTML = '';
+    searchSourceSelect.style.display = 'none';
+    searchButtonClear.style.display = 'none';
 }
 
 primarySearch.addEventListener('change', function () {
