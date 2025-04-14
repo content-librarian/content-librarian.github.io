@@ -1,0 +1,3 @@
+[submodule "content-librarian.github.io"]
+    path = content-librarian.github.io
+    url = https://github.com/content-librarian/content-librarian.github.io.git
